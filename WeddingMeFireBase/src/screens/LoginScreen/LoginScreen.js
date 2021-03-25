@@ -31,7 +31,6 @@ export default function LoginScreen({navigation}) {
                         navigation.navigate('Accueil', {
                             user:user,
                         })
-                        console.log("PASSE")
                     })
                     .catch(error => {
                         alert(error)

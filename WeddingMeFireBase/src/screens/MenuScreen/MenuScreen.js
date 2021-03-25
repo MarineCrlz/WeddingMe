@@ -2,7 +2,6 @@ import React from 'react'
 import { Text, View, Image } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import styles from './styles';
-import { NavigationContainer } from '@react-navigation/native'
 
 const MenuScreen = ({navigation}) => {
 
