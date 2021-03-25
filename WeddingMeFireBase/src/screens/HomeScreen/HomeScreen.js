@@ -8,6 +8,7 @@ import { useReducer } from 'react';
 const HomeScreen = ({route, navigation}) => {
     const { user } = route.params;
 
+// const HomeScreen = ({navigation}) => {
     const onAccountPress = () => {
         navigation.navigate('Compte')
     }

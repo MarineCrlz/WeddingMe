@@ -14,7 +14,8 @@ export default function BudgetScreen({navigation}) {
             <Text>Mon budget</Text>
             <TouchableOpacity
                     style={styles.button}
-                    onPress={() => onLoginPress()}>
+                    //onPress={() => onLoginPress()}
+                    >
                     <Text style={styles.buttonTitle}>Touche moi</Text>
                 </TouchableOpacity>
         </View>
