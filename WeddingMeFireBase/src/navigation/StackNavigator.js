@@ -67,11 +67,42 @@ function MainStackNavigator() {
       );
     }
 
-    export default function HomeImbriquee(){
+    //CA FONCTIOOOOOOOOOOOOOOOOOOONNE en mode export default
+    function HomeImbriquee(){
       return (
         <Stack.Navigator>
           <Stack.Screen name="Budget" component={BudgetScreen}/>
           <Stack.Screen name="Home" component={Home}/>
+        </Stack.Navigator>
+      );
+    }
+
+    //C'est la que les choses serieuses commencent
+
+    function AuthNavigator(){
+      return(
+        <Stack.Navigator>
+          <Stack.Screen name="Connexion" component={LoginScreen}/>
+          <Stack.Screen name="Inscription" component={RegistrationScreen}/>
+        </Stack.Navigator>
+      );
+    }
+
+    function MainTabNavigator(){
+      return(
+        <Tab.Navigator>
+          <Tab.Screen name = "Accueil" component={HomeScreen}/>
+          <Tab.Screen name = "Compte" component={AccountScreen}/>
+        </Tab.Navigator>
+      )
+    }
+
+    export default function MainNavigator(){
+      return(
+        <Stack.Navigator>
+          <Stack.Screen name="Connexion" component={LoginScreen}/>
+          <Stack.Screen name="Inscription" component={RegistrationScreen}/>
+          <Stack.Screen name="MainTab" component={MainTabNavigator}/>
         </Stack.Navigator>
       )
     }
