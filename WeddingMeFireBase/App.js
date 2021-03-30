@@ -11,6 +11,7 @@ if (!global.atob) { global.atob = decode }
 //ajouté pour test
 import Home, {GeneralNavigator } from "./src/navigation/StackNavigator"
 import HomeImbriquee from './src/navigation/StackNavigator';
+import MainNavigator from './src/navigation/StackNavigator';
 
 const Stack = createStackNavigator();
 
@@ -19,15 +20,9 @@ export default function App() {
   const [loading, setLoading] = useState(true)
   const [user, setUser] = useState(null)
 
-
   return (
     <NavigationContainer>
-      {user ? (
-        <MainStackNavigator/>
-      ) : (
-        <HomeImbriquee/>
-      )
-      }
+<MainNavigator/>
     </NavigationContainer>
   );
 }
