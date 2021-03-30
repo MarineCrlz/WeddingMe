@@ -1,13 +1,49 @@
 import React from 'react'
-import { Text, View, Image } from 'react-native'
+import { Text, View, Image, TextInput } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import styles from './styles';
 
-export default function AccountScreen({navigation}) {
 
-    return (
+class AccountScreen extends React.Component {
+    
+    constructor (props) {
+        super(props)
+        }
+
+    keepTextInputChanged(text,position) {
+        //user.position = text
+    }
+
+    updateText() {
+
+    }
+
+    render(){
+        console.log(this.props)
+            return (
         <View style={styles.container}>
-            <Text>Mon compte</Text>
+            <View style={styles.header}>
+                <Text>Mon compte</Text>
+            </View>
+            <View style={styles.donnees}>
+                <View style={styles.prenom}>
+                    <Text>Mon prénom</Text>
+                    <TextInput
+                        style={styles.textinput}
+                        placeholder='Jaune'
+                        //placeholder={JSON.stringify(user.fullName)}
+                        onChangeText={(text) => this.keepTextInputChanged(text,fullName)}
+                    />
+                </View>
+            </View>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => updateText()}
+            />
         </View>
     )
+    }
+
 }
+
+export default AccountScreen;
