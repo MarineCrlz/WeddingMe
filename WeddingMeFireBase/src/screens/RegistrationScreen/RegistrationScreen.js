@@ -28,13 +28,18 @@ export default function RegistrationScreen({navigation}) {
                     id: uid,
                     email,
                     fullName,
+                    partner: "",
+                    venue: "",
+                    date : ""
                 };
                 const usersRef = firebase.firestore().collection('users')
                 usersRef
                     .doc(uid)
                     .set(data)
                     .then(() => {
-                        navigation.navigate('Accueil', {user: data})
+                        const user = data
+                        navigation.navigate('MainTab', {screen : 'Accueil', params: {user:user}})
+                        console.log(user)
                     })
                     .catch((error) => {
                         alert(error)

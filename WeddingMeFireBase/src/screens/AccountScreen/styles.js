@@ -3,7 +3,15 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
     container: {
         flex: 1,
-        //alignItems: 'center'
+        alignItems: 'center',
+        marginTop: 20
+    },
+    donnees:{
+        flex: 1,
+        marginTop: 10,
+    },
+    prenom: {
+        flexDirection : 'row'
     },
     input: {
         height: 48,
