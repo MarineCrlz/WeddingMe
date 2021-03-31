@@ -10,34 +10,28 @@ export default function AccountScreen({navigation}) {
     const [userName, setName] = useState('')
     const [userPartner, setPartner] = useState('')
     const [userBudget, setBudget] = useState('')
+    const [userVenue, setVenue] = useState('')
+    const [userDate, setDate] = useState('')
+    const [userMail, setMail] = useState('')
 
-    //const ici codée en brut, mais sinon à récupérer directement dans le user transmis
-    const idUser = "uS5qo0f9JAT6D8kkwnxDQmvon813"
-
-    //Ici on fait le squelette de récupérations de données, normalement inutile pour cette page
 
     //Recuperation du user
     firebase.
         firestore()
             .collection('users')
-            .doc(idUser)
+            .doc(firebase.auth().currentUser.uid)
             .get()
             .then(firestoreDocument => {
-                console.log('User exists: ', firestoreDocument.exists);
-
+                //console.log('User exists: ', firestoreDocument.exists);
                 if (firestoreDocument.exists) {
-                    console.log('User data firestore: ', firestoreDocument.data())
                     const user = firestoreDocument.data()
-
-                    console.log("User : on devrait avoir les différentes infos")
-                    console.log(user)
-                    setName("Bah")
+                    setName(user.fullName)
                     setPartner(user.partner)
                     setBudget(user.budget)
-                    console.log("User name")
-                    console.log(user.fullName)
+                    setVenue(user.venue)
+                    setDate(user.date)
+                    setMail(user.email)
                 }
-                console.log(userName)
             });
 
     //On récupère les données actuellement stockées
@@ -73,19 +67,67 @@ export default function AccountScreen({navigation}) {
                 <Text>Mon compte</Text>
             </View>
             <View style={styles.donnees}>
-                <View style={styles.prenom}>
-                    <Text>Mon prénom</Text>
+                <View style={styles.donneesSpe}>
+                    <Text>Prénom</Text>
                     <TextInput
-                        style={styles.textinput}
+                        style={styles.input}
                         placeholder={JSON.stringify(userName)}
+                        placeholderTextColor="#aaaaaa"
+                        //onChangeText={(text) => this.keepTextInputChanged(text,fullName)}
+                    />
+                </View>
+                <View style={styles.donneesSpe}>
+                    <Text>Partenaire</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder={JSON.stringify(userPartner)}
+                        placeholderTextColor="#aaaaaa"
+                        //onChangeText={(text) => this.keepTextInputChanged(text,fullName)}
+                    />
+                </View>
+                <View style={styles.donneesSpe}>
+                    <Text>Budget total</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder={JSON.stringify(userBudget)}
+                        placeholderTextColor="#aaaaaa"
+                        //onChangeText={(text) => this.keepTextInputChanged(text,fullName)}
+                    />
+                </View>
+                <View style={styles.donneesSpe}>
+                    <Text>Lieu du mariage</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder={JSON.stringify(userVenue)}
+                        placeholderTextColor="#aaaaaa"
+                        //onChangeText={(text) => this.keepTextInputChanged(text,fullName)}
+                    />
+                </View>
+                <View style={styles.donneesSpe}>
+                    <Text>Date du mariage</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder={JSON.stringify(userDate)}
+                        placeholderTextColor="#aaaaaa"
+                        //onChangeText={(text) => this.keepTextInputChanged(text,fullName)}
+                    />
+                </View>
+                <View style={styles.donneesSpe}>
+                    <Text>Adresse mail</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder={JSON.stringify(userMail)}
+                        placeholderTextColor="#aaaaaa"
                         //onChangeText={(text) => this.keepTextInputChanged(text,fullName)}
                     />
                 </View>
             </View>
             <TouchableOpacity
-                style={styles.button}
-                onPress={() => updateText()}
-            />
+                    style={styles.button}
+                    //onPress={() => onLoginPress()}
+                    >
+                    <Text style={styles.buttonTitle}>Modifier</Text>
+            </TouchableOpacity>
         </View>
     )
     }
