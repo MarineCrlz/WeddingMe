@@ -7,6 +7,7 @@ import { HomeScreen, LoginScreen, RegistrationScreen } from "../screens";
 import AccountScreen from "../screens/AccountScreen/AccountScreen";
 import MenuScreen from "../screens/MenuScreen/MenuScreen";
 import BudgetScreen from "../screens/BudgetScreen/BudgetScreen";
+import Icon from 'react-native-vector-icons/Feather';
 
 const Stack = createStackNavigator();
 const MainStack = createStackNavigator();
@@ -90,9 +91,82 @@ function MainStackNavigator() {
 
     function MainTabNavigator(){
       return(
-        <Tab.Navigator>
-          <Tab.Screen name = "Accueil" component={HomeScreen}/>
-          <Tab.Screen name = "Compte" component={AccountScreen}/>
+        <Tab.Navigator
+          tabBarOptions={{
+            activeTintColor: "#fec89a",
+            inactiveTintColor: "#222222"
+          }}
+        >
+          <Tab.Screen 
+            name = "Accueil" 
+            component={HomeScreen}
+            options= {{
+              tabBarIcon: ({focused, color, size}) => (
+                <Icon
+                  name='home'
+                  size={size ? size : 24}
+                  color = {focused ? color : "#222222"}
+                  focused={focused}
+                  color={color}/>
+              )
+            }}
+          />
+          <Tab.Screen 
+            name = "Budget" 
+            component={BudgetScreen}
+            options= {{
+              tabBarIcon: ({focused, color, size}) => (
+                <Icon
+                  name='dollar-sign'
+                  size={size ? size : 24}
+                  color = {focused ? color : "#222222"}
+                  focused={focused}
+                  color={color}/>
+              )
+            }}
+          />
+          <Tab.Screen 
+            name = "ToDo" 
+            component={AccountScreen}
+            options= {{
+              tabBarIcon: ({focused, color, size}) => (
+                <Icon
+                  name='check-circle'
+                  size={size ? size : 24}
+                  color = {focused ? color : "#222222"}
+                  focused={focused}
+                  color={color}/>
+              )
+            }}
+          />
+          <Tab.Screen 
+            name = "Invités" 
+            component={AccountScreen}
+            options= {{
+              tabBarIcon: ({focused, color, size}) => (
+                <Icon
+                  name='users'
+                  size={size ? size : 24}
+                  color = {focused ? color : "#222222"}
+                  focused={focused}
+                  color={color}/>
+              )
+            }}
+          />
+          <Tab.Screen 
+            name = "Prestataires" 
+            component={AccountScreen}
+            options= {{
+              tabBarIcon: ({focused, color, size}) => (
+                <Icon
+                  name='search'
+                  size={size ? size : 24}
+                  color = {focused ? color : "#222222"}
+                  focused={focused}
+                  color={color}/>
+              )
+            }}
+          />
         </Tab.Navigator>
       )
     }
@@ -103,6 +177,7 @@ function MainStackNavigator() {
           <Stack.Screen name="Connexion" component={LoginScreen}/>
           <Stack.Screen name="Inscription" component={RegistrationScreen}/>
           <Stack.Screen name="MainTab" component={MainTabNavigator}/>
+          <Stack.Screen name='Compte' component={AccountScreen}/>
         </Stack.Navigator>
       )
     }
