@@ -13,10 +13,6 @@ const HomeScreen = ({route, navigation}) => {
         navigation.navigate('Compte')
     }
 
-    const onMenuPress = () => {
-        navigation.navigate('Menu')
-    }
-
     return (
         <View style={styles.container}>
             <ImageBackground
@@ -24,14 +20,6 @@ const HomeScreen = ({route, navigation}) => {
                 source={require('../../../assets/couple_kiss.jpg')}
             >
             <View style={styles.header}>
-                <TouchableOpacity 
-                style={styles.menu}
-                onPress={onMenuPress}>
-                    <Image
-                        style={styles.logo}
-                        source={require('../../../assets/menu.png')}
-                    />                
-                </TouchableOpacity>
                 <TouchableOpacity 
                 style={styles.menu}
                 onPress={onAccountPress}>
