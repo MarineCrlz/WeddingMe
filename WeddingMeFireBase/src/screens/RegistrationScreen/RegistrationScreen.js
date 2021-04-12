@@ -30,7 +30,8 @@ export default function RegistrationScreen({navigation}) {
                     fullName,
                     partner: "",
                     venue: "",
-                    date : ""
+                    date : "",
+                    budget: "",
                 };
                 const usersRef = firebase.firestore().collection('users')
                 usersRef
@@ -38,7 +39,8 @@ export default function RegistrationScreen({navigation}) {
                     .set(data)
                     .then(() => {
                         const user = data
-                        navigation.navigate('MainTab', {screen : 'Accueil', params: {user:user}})
+                        navigation.navigate('WeddingMe', {screen : 'Accueil', params: {user:user}})
+                        //TEST pour voir l'affichage de l'user
                         console.log(user)
                     })
                     .catch((error) => {

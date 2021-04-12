@@ -29,7 +29,7 @@ export default function LoginScreen({navigation}) {
                         }
                         const user = firestoreDocument.data()
                         console.log(user)
-                        navigation.navigate('MainTab', {screen : 'Accueil', params: {user:user}
+                        navigation.navigate('WeddingMe', {screen : 'Accueil', params: {user:user}
                         })
                     })
                     .catch(error => {
