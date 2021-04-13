@@ -31,7 +31,7 @@ const HomeScreen = ({route, navigation}) => {
             </View>
             </ImageBackground>
             <View style={styles.message}>
-                <Text>Bienvenue {JSON.stringify(user.fullName)}</Text>
+                <Text style={styles.text}>Bienvenue {JSON.stringify(user.fullName)}</Text>
             </View>
         </View>
     )

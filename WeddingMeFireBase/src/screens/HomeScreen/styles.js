@@ -29,7 +29,7 @@ export default StyleSheet.create({
      header: {
         flexDirection: 'row',
         alignContent : 'space-around',
-        justifyContent : 'space-between',
+        justifyContent : 'flex-end',
         marginRight : 20,
         marginLeft : 20,
         marginTop : 20
@@ -49,6 +49,11 @@ export default StyleSheet.create({
          //alignContent : 'flex-end',
          //marginBottom : 50,
          //marginTop : 100
+     },
+
+     text :{
+        fontSize : 20,
+        color : 'black',
      },
 
      empty : {
