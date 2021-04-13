@@ -8,6 +8,7 @@ import AccountScreen from "../screens/AccountScreen/AccountScreen";
 import BudgetScreen from "../screens/BudgetScreen/BudgetScreen";
 import Icon from 'react-native-vector-icons/Feather';
 import ToDoListScreen from "../screens/TodoListScreen/TodoListScreen";
+import ToDoListDetailScreen from "../screens/TodoListDetailScreen/TodoListDetailScreen";
 
 const Stack = createStackNavigator();
 const MainStack = createStackNavigator();
@@ -128,6 +129,9 @@ const screenOptionStyle = {
           <Stack.Screen name="Inscription" component={RegistrationScreen}/>
           <Stack.Screen name="WeddingMe" component={MainTabNavigator}/>
           <Stack.Screen name='Compte' component={AccountScreen}/>
+          
+          <Stack.Screen name='TodoListDetail' component={ToDoListDetailScreen}/>
+
         </Stack.Navigator>
       )
     }
