@@ -5,10 +5,13 @@ import styles from './styles';
 import { NavigationContainer } from '@react-navigation/native'
 import { useReducer } from 'react';
 
+//CODE FONCTIONNEL
 const HomeScreen = ({route, navigation}) => {
+
+    //Recuperation du user
     const { user } = route.params;
 
-// const HomeScreen = ({navigation}) => {
+    //Fonction navigation
     const onAccountPress = () => {
         navigation.navigate('Compte')
     }
