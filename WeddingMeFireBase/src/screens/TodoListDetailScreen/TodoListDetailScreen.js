@@ -5,6 +5,7 @@ import { firebase } from '../../firebase/config'
 import ToDoListItemScreen from '../TodoItemScreen/TodoItemScreen';
 import { ScrollView } from 'react-native-gesture-handler';
 
+//CODE FONCTIONNEL
 class ToDoListDetailScreen extends React.Component {
 
   constructor(props) {
@@ -16,9 +17,17 @@ class ToDoListDetailScreen extends React.Component {
     }
   }
 
+  //Fonction setter
+  setToDos(data){
+    this.setState({todos : data})
+  }
+
   componentDidMount(){
     this.timeGiven = this.props.route.params.time
+    //Chargement des todos correspondant a la periode donnee
     this.loadToDos(this.timeGiven)
+
+    //Differenciation de l'affichage en fonction des data
     if (this.timeGiven == "12m") {
         this.setState({texte : "12 mois avant"})
       }
@@ -43,14 +52,11 @@ class ToDoListDetailScreen extends React.Component {
       if (this.timeGiven == "0j") {
         this.setState({texte : "Le jour J"})
       }
-      console.log(this.texte)
-  }
-
-  setToDos(data){
-    this.setState({todos : data})
   }
 
   loadToDos(time){
+    //Permet de charger les todos correspondant à la période donnée
+    //a partir de la BDD
         firebase.
             firestore()
             .collection('todoListFixed')
@@ -76,7 +82,6 @@ class ToDoListDetailScreen extends React.Component {
   render() {
     return (
       <View style={styles.main_container}>
-        {/* <ScrollView> */}
             <View style={styles.container_title}>
             <Text style={styles.title}> {this.state.texte}</Text>
             </View>
@@ -87,7 +92,6 @@ class ToDoListDetailScreen extends React.Component {
               renderItem={({item}) => <ToDoListItemScreen todo={item}/>}
               />
             </View>
-        {/* </ScrollView> */}
       </View>
     )
   }
