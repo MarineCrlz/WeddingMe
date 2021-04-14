@@ -9,6 +9,7 @@ import BudgetScreen from "../screens/BudgetScreen/BudgetScreen";
 import Icon from 'react-native-vector-icons/Feather';
 import ToDoListScreen from "../screens/TodoListScreen/TodoListScreen";
 import ToDoListDetailScreen from "../screens/TodoListDetailScreen/TodoListDetailScreen";
+import GuestScreen from "../screens/GuestScreen/GuestScreen";
 
 const Stack = createStackNavigator();
 const MainStack = createStackNavigator();
@@ -92,7 +93,7 @@ const screenOptionStyle = {
           />
           <Tab.Screen 
             name = "Invités" 
-            component={AccountScreen}
+            component={GuestScreen}
             options= {{
               tabBarIcon: ({focused, color, size}) => (
                 <Icon
