@@ -4,17 +4,20 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import styles from './styles';
 import { firebase } from '../../firebase/config'
 
+//CODE FONCTIONNEL
 export default function RegistrationScreen({navigation}) {
     const [fullName, setFullName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
+    //Fonction navigation
     const onFooterLinkPress = () => {
         navigation.navigate('Connexion')
     }
 
     const onRegisterPress = () => {
+    //Creation du compte a partir des donnees saisies
         if (password !== confirmPassword) {
             alert("Les mots de passe ne sont pas identiques.")
             return
@@ -40,8 +43,6 @@ export default function RegistrationScreen({navigation}) {
                     .then(() => {
                         const user = data
                         navigation.navigate('WeddingMe', {screen : 'Accueil', params: {user:user}})
-                        //TEST pour voir l'affichage de l'user
-                        console.log(user)
                     })
                     .catch((error) => {
                         alert(error)
