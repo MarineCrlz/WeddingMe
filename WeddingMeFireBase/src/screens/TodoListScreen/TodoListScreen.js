@@ -2,7 +2,6 @@ import React from 'react'
 import { StyleSheet, View, TextInput, Button, Text, FlatList, ActivityIndicator, Image } from 'react-native'
 import styles from './styles';
 import { firebase } from '../../firebase/config'
-import ToDoListItemScreen from '../TodoItemScreen/TodoItemScreen';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 
 class ToDoListScreen extends React.Component {
@@ -10,84 +9,15 @@ class ToDoListScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      // todos12m: [],
-      // todos9m: [],
-      // todos6m: [],
-      // todos4m: [],
-      // todos3m: [],
-      // todos2s: [],
-      // todos3j: [],
-      // todos0j: [],
     }
   }
 
-  // componentDidMount(){
-  //   this.loadAllToDos()
-  // }
-
-  // setToDos(data, time){
-  //     if (time == "12m") {
-  //       this.setState({todos12m : data})
-  //     }
-  //     if (time == "9m") {
-  //       this.setState({todos9m : data})
-  //     }
-  //     if (time == "6m") {
-  //       this.setState({todos6m : data})
-  //     }
-  //     if (time == "4m") {
-  //       this.setState({todos4m : data})
-  //     }
-  //     if (time == "3m") {
-  //       this.setState({todos3m : data})
-  //     }
-  //     if (time == "2s") {
-  //       this.setState({todos2s : data})
-  //     }
-  //     if (time == "3j") {
-  //       this.setState({todos3j : data})
-  //     }
-  //     if (time == "0j") {
-  //       this.setState({todos0j : data})
-  //     }
-  // }
-
-  // loadAllToDos(){
-  //   this.loadToDos("12m")
-  //   this.loadToDos("9m")
-  //   this.loadToDos("6m")
-  //   this.loadToDos("4m")
-  //   this.loadToDos("3m")
-  //   this.loadToDos("2s")
-  //   this.loadToDos("3j")
-  //   this.loadToDos("0j")
-  // }
-
-  // loadToDos(time){
-  //       firebase.
-  //           firestore()
-  //           .collection('todoListFixed')
-  //           .where("Time", "==", time)
-  //           .onSnapshot(
-  //               (querySnapshot) => {
-  //                   const newEntities = []
-  //                   querySnapshot.forEach(doc => {
-  //                       const entity = doc.data()
-  //                       entity.id = doc.id
-  //                       newEntities.push(entity)
-  //                   });
-  //                   this.setToDos(newEntities, time) 
-  //               },
-  //               error => {
-  //                   console.log(error)
-  //               }
-  //           )
-  // }
-
   //Fonction navigation
   displayedDetails(time){
+    //Envoi sur la page de détail des todo de la période considérée via le Stack Navigator
       this.props.navigation.navigate("TodoListDetail", {time : time})
   }
+  
   render() {
     return (
       <View style={styles.main_container}>

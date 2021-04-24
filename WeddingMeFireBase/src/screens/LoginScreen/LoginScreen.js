@@ -4,18 +4,20 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import styles from './styles';
 import { firebase } from '../../firebase/config'
 
-//CODE FONCTIONNEL
 export default function LoginScreen({navigation}) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
+    //Fonction de navigation
     const onFooterLinkPress = () => {
+        //Conduit à la page de connexion via le StackNavigator
         navigation.navigate('Inscription')
     }
 
+    //Fonction de connexion de l'user avec mot de passe et identifiant
+    //et création des éléments relatifs dans la BDD
+    //Requêtes No-SQL envoyées au service Authentification de FireBase
     const onLoginPress = () => {
-        //Permet de verifier l'authentification a l'aide de FireBase
-        //et de l'adresse mail + mot de passe
         firebase
             .auth()
             .signInWithEmailAndPassword(email, password)
@@ -27,7 +29,7 @@ export default function LoginScreen({navigation}) {
                     .get()
                     .then(firestoreDocument => {
                         if (!firestoreDocument.exists) {
-                            alert("Nous sommes désolée mais ce compte n'existe pas.")
+                            alert("Nous sommes désolés mais ce compte n'existe pas.")
                             return;
                         }
                         const user = firestoreDocument.data()
