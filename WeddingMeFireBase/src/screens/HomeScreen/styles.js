@@ -1,11 +1,15 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
+
+    //Conteneur principal
     container: {
         flex: 1,
         alignItems: 'center'
 
     },
+
+    //TextInput
     input: {
         height: 48,
         borderRadius: 5,
@@ -18,6 +22,7 @@ export default StyleSheet.create({
         paddingLeft: 16
     },
 
+    //Image de fond
      background: {
          flex: 1,
          height: '100%',
@@ -26,6 +31,7 @@ export default StyleSheet.create({
          //margin: 30
      },
 
+     //Conteneur du header
      header: {
         flexDirection: 'row',
         alignContent : 'space-around',
@@ -35,10 +41,11 @@ export default StyleSheet.create({
         marginTop : 20
      },
 
+     //logo
      logo :{
-        //position : 'absolute',
      },
 
+     //Conteneur de l'affichage d'accueil personnalisé
      message :{
          height : '20%',
          width : '100%',
@@ -46,17 +53,11 @@ export default StyleSheet.create({
          flexDirection : 'column',
          alignItems : 'center',
          justifyContent : 'center',
-         //alignContent : 'flex-end',
-         //marginBottom : 50,
-         //marginTop : 100
      },
 
+     //Texte de l'affichage personnalisé
      text :{
         fontSize : 20,
         color : 'black',
      },
-
-     empty : {
-        flex : 1
-     }
 })

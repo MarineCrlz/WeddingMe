@@ -1,21 +1,14 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
+
+  //Conteneur global
     main_container: {
         flex: 1,
         backgroundColor : '#f8edeb'
       },
-
-      loading_container: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: 100,
-        bottom: 0,
-        alignItems: 'center',
-        justifyContent: 'center'
-      },
-      
+    
+  //Conteneur du titre de la vue
     main_text: {
       flex : 1,
       justifyContent : 'center',
@@ -25,28 +18,31 @@ export default StyleSheet.create({
 
     },
 
+  //Texte du titre de la vue
     text: {
       fontWeight: 'bold',
       fontSize: 20,
       color : '#ffff',
     },
 
+    //ScrollView
     main_scroll: {
       width : '100%'
     },
 
+    //Conteneur contenant le ScrollView et tous les view des TouchableOpacity
     main_touchable: {
       flex : 10,
-      //width : '100%',
       justifyContent : 'center',
       alignItems: 'center',
     },
 
+    //Conteneur contenenat tous les TouchableOpacity
     container_touchable: {
       flex : 1,
-      //width : '100%',
     },
 
+    //TouchableOpacity
     touchable: {
       flexDirection: 'row',
       alignItems : 'center',
@@ -61,13 +57,14 @@ export default StyleSheet.create({
       paddingLeft: 10
     },
 
+    //Image illustrant chaque catégorie
     image: {
       width: 50,
       height: 50,
       margin: 10,
-      //backgroundColor: 'gray'
     },
 
+    //Texte de chaque catégorie
     title: {
       fontWeight: 'normal',
       fontSize: 17,
