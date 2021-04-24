@@ -2,10 +2,9 @@ import React from 'react'
 import { StyleSheet, View, TextInput, Button, Text, FlatList, ActivityIndicator } from 'react-native'
 import styles from './styles';
 import { firebase } from '../../firebase/config'
-import ToDoListItemScreen from '../TodoItemScreen/TodoItemScreen';
+import TodoItem from '../../../components/TodoItem/TodoItem';
 import { ScrollView } from 'react-native-gesture-handler';
 
-//CODE FONCTIONNEL
 class ToDoListDetailScreen extends React.Component {
 
   constructor(props) {
@@ -22,7 +21,9 @@ class ToDoListDetailScreen extends React.Component {
     this.setState({todos : data})
   }
 
+  //Fonction automatiquement lancée à l'ouverture du screen
   componentDidMount(){
+    //Recuperation de la temporalite selectionnée
     this.timeGiven = this.props.route.params.time
     //Chargement des todos correspondant a la periode donnee
     this.loadToDos(this.timeGiven)
@@ -54,9 +55,9 @@ class ToDoListDetailScreen extends React.Component {
       }
   }
 
+  //Fonction qui permet de charger les todo list
+  //Requêtes No-SQL envoyées à la BDD Firestore
   loadToDos(time){
-    //Permet de charger les todos correspondant à la période donnée
-    //a partir de la BDD
         firebase.
             firestore()
             .collection('todoListFixed')
@@ -89,7 +90,7 @@ class ToDoListDetailScreen extends React.Component {
               <FlatList
               data={this.state.todos}
               keyExtractor={(item) => item.id.toString()}
-              renderItem={({item}) => <ToDoListItemScreen todo={item}/>}
+              renderItem={({item}) => <TodoItem todo={item}/>}
               />
             </View>
       </View>
