@@ -10,8 +10,8 @@ class HomeScreen extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            user : ''
-            // user: this.props.route.params.user
+            //user : ''
+            user: this.props.route.params.user
         }
     }
 
@@ -21,6 +21,8 @@ class HomeScreen extends React.Component {
 
     //Fonction automatiquement lancée à l'ouverture du screen
     componentDidMount(){
+        console.log("Props de base")
+        console.log(this.props)
         //Appel le chargement des données de l'user actuel
         this.fetchUser()
     }
@@ -38,6 +40,8 @@ class HomeScreen extends React.Component {
                 if (firestoreDocument.exists) {
                     const user = firestoreDocument.data()
                     this.setUser(user)
+                    console.log("Uer Home fetch")
+                    console.log(user)
                     //this.setState({user : user})
                 }
             });        
@@ -45,6 +49,8 @@ class HomeScreen extends React.Component {
 
     //Fonction navigation
     onAccountPress() {
+        console.log("Account press")
+        console.log(this.state.user)
         var newUser = this.state.user
         //Conduit à la page du compte via le StackNavigator
         this.props.navigation.navigate('Compte', {user : newUser})

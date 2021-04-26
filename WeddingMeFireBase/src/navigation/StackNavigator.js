@@ -15,6 +15,8 @@ import BudgetDetailScreen from "../screens/BudgetDetailScreen/BudgetDetailScreen
 import CustomerAddScreen from "../screens/CustomerAddScreen/CustomerAddScreen";
 import CustomerDetailScreen from "../screens/CustomerDetailScreen/CustomerDetailScreen";
 import CustomerScreen from "../screens/CustomerScreen/CustomerScreen";
+import { NavigationContainer } from "@react-navigation/native";
+import { firebase } from '../firebase/config'
 
 //Définition des différents navigateurs
 const Stack = createStackNavigator();
@@ -29,24 +31,6 @@ const screenOptionStyle = {
     headerTintColor: "white",
     headerBackTitle: "Back",
   };
-
-    //test switched nav
-    function GeneralNavigator() {
-      return (
-        <MainStack.Navigator>
-          <Stack.Screen name="Auth" component={AuthNavigator}/>
-          <Stack.Screen name="MainTab" component={MainTabNavigator}/>
-        </MainStack.Navigator>
-      );
-    }
-    function AuthNavigator(){
-      return(
-        <Stack.Navigator>
-          <Stack.Screen name="Connexion" component={LoginScreen}/>
-          <Stack.Screen name="Inscription" component={RegistrationScreen}/>
-        </Stack.Navigator>
-      );
-    }
 
     //Définition du TabNavigator (la barre de navigation)
     function MainTabNavigator(){
@@ -139,6 +123,7 @@ const screenOptionStyle = {
     }
 
     export default function MainNavigator(){
+
       return(
 
         //Définiton de l'ensemble des liens possibles via la navigation Stack
@@ -147,6 +132,7 @@ const screenOptionStyle = {
         //Avec les pages de Connexion et Inscription, le TabNavigator
         //et les différents liens accessibles une fois la connexion effectuée
         //via des boutons
+        
         <Stack.Navigator>
           <Stack.Screen name="Connexion" component={LoginScreen}/>
           <Stack.Screen name="Inscription" component={RegistrationScreen}/>

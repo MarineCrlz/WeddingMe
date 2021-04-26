@@ -13,8 +13,6 @@ class AccountScreen extends React.Component {
         //Car elles n'affectent PAS l'affichage, donc inutile de faire le
         //setState et relancer le render à chaque fois
         //On les met donc en prop
-
-        // //Pour le stest on le met en sourdine
         this.lieu = this.props.route.params.user.venue,
         this.prenom = this.props.route.params.user.fullName,
         this.partenaire = this.props.route.params.user.partner,
@@ -22,6 +20,7 @@ class AccountScreen extends React.Component {
         this.date = this.props.route.params.user.date,
         this.mail = this.props.route.params.user.email,
 
+        //Nouvelles donnees
         this._lieu = "",
         this._prenom = "",
         this._partenaire = "",
@@ -31,51 +30,32 @@ class AccountScreen extends React.Component {
         this.state = {
             user : '',
             userId: '',
-            //partenaire: '',
-            //test
-            // lieu : this.props.route.params.user.venue,
-            // prenom : this.props.route.params.user.fullName,
-            // partenaire : this.props.route.params.user.partner,
-            // budget : this.props.route.params.user.budget,
-            // date : this.props.route.params.user.date,
-            // mail : this.props.route.params.user.email,
         }
       }
 
-    //A TESTER
-    // setInfosUser(user){
-    //     this.setState({lieu : user.venue})
-    //     this.setState({prenom : user.fullName})
-    //     this.setState({partenaire : user.partner})
-    //     this.setState({budget : user.budget})
-    //     this.setState({date : user.date})
-    //     this.setState({mail : user.email})
-    // }
-
     //Fonctions setter
     setVenue(data){
-        //avant : this._lieu = data
-        this.lieu = data
+        this._lieu = data
     }
 
     setName(data){
-        this.prenom = data
+        this._prenom = data
     }
 
     setPartner(data){
-        this.partenaire = data
+        this._partenaire = data
     }
 
     setBudget(data){
-        this.budget = data
+        this._budget = data
     }
 
     setDate(data){
-        this.date = data
+        this._date = data
     }
 
     setMail(data){
-        this.mail = data
+        this._mail = data
     }
 
     setUser(data){
@@ -87,11 +67,13 @@ class AccountScreen extends React.Component {
     }
 
     setNewBudget(data){
-        this.budget = data
+        this._budget = data
     }
 
     //Fonction de récupération de l'user
     //Requêtes No-SQL envoyées à la BDD Firestore
+    //Ne sera appelé que lors de la modification, 
+    //pour envoyer le nouvel user à l'accueil
     fetchUser(){
         firebase.
         firestore()
@@ -101,39 +83,15 @@ class AccountScreen extends React.Component {
             .then(firestoreDocument => {
                 if (firestoreDocument.exists) {
                     const user = firestoreDocument.data()
-                    this.setUserId(user.id)
-                    this.setUser(user)
-
-                    //CODE A TESTER
-                    //this.setInfosUser(user)
-
-
-                    //this.setNewBudget(user.budget)
-                    //this.budget = user.budget
+                    this.props.navigation.navigate('WeddingMe', {screen : 'Accueil', params: {user:firestoreDocument.data()}})
                 }
             });
-    }
-
-  //Fonction automatiquement lancée à l'ouverture du screen
-    componentDidMount(){
-    //Appel le chargement des données de l'user actuel
-    this.fetchUser()
-
-    console.log(this.props)
     }
 
   //Fonction de modification de la dépense
   //Recuperation des éléments à modifier
   //puis Requêtes No-SQL envoyées à la BDD Firestore
   updateDataAccount(){
-    //TEST
-    // var newLieu = this.state.lieu
-    // var newPrenom = this.state.prenom
-    // var newPartenaire = this.state.partenaire
-    // var newBudget = this.state.budget
-    // var newDate = this.state.date
-    // var newMail = this.state.mail
-
     var newLieu = this.lieu
     var newPrenom = this.prenom
     var newPartenaire = this.partenaire
@@ -142,31 +100,31 @@ class AccountScreen extends React.Component {
     var newMail = this.mail
 
     //on n'envoie que les éléments modifiés par l'utilisateur
-      if (this._lieu != "")
+      if (this._lieu != "" && this._lieu != this.lieu)
       {
         newLieu = this._lieu
       }
-      if (this._prenom != "")
+      if (this._prenom != "" && this._prenom != this.prenom)
       {
         newPrenom = this._prenom
       }
-      if (this._partenaire != "")
+      if (this._partenaire != "" && this._partenaire != this.partenaire)
       {
         newPartenaire= this._partenaire
       }
-      if (this._budget != "")
+      if (this._budget != "" && this._budget != this.budget)
       {
         newBudget= this._budget
       }
-      if (this._date != "")
+      if (this._date != "" && this._date != this.date)
       {
         newDate= this._date
       }
-      if (this._mail != "")
+      if (this._mail != "" && this._mail != this.mail)
       {
         newMail= this._mail
       }
-    //fonction de modification
+    //appel de la fonction de modification
     this.updateAccount(newLieu, newPrenom, newPartenaire, newBudget, newDate, newMail)
   }
 
@@ -176,7 +134,7 @@ class AccountScreen extends React.Component {
     firebase.
       firestore()
           .collection('users')
-          .doc(this.state.userId)
+          .doc(this.props.route.params.user.id)
           .update({
               budget : Budget,
               date : Date,
@@ -186,8 +144,8 @@ class AccountScreen extends React.Component {
               venue : Lieu
           })
           .then(() => {
-              //this.props.navigation.goBack();
-              this.props.navigation.navigate('WeddingMe', {screen : 'Accueil', params: {user:this.state.user}})
+              //Recuperation du user pour qu'il soit envoyé à l'accueil
+              this.fetchUser()
               console.log("Document successfully updated!");
               
           }).catch((error) => {
@@ -196,7 +154,6 @@ class AccountScreen extends React.Component {
     }
 
     render(){
-
         return(
             <View style={styles.container}>
             <View style={styles.header}>
@@ -210,7 +167,6 @@ class AccountScreen extends React.Component {
                         placeholder={JSON.stringify(this.prenom)}
                         placeholderTextColor="#aaaaaa"                    
                         onChangeText={(text) => this.setName(text)}
-                        //avant : this.state.prenom
                         value={this.state.prenom}
                         underlineColorAndroid="transparent"
                         autoCapitalize="none"
@@ -219,7 +175,6 @@ class AccountScreen extends React.Component {
                 <View style={styles.donneesSpe}>
                     <Text>Partenaire</Text>
                     <TextInput
-
                         style={styles.input}
                         placeholder={JSON.stringify(this.partenaire)}
                         placeholderTextColor="#aaaaaa"                    
@@ -291,189 +246,3 @@ class AccountScreen extends React.Component {
 }
 
 export default AccountScreen
-// }
-// export default function AccountScreen({navigation}) {
-//     //Variables contenant les actuellement en mémoire dans FireBase
-//     const [uid, setID] = useState('')
-//     const [userName, setName] = useState('')
-//     const [userPartner, setPartner] = useState('')
-//     const [userBudget, setBudget] = useState('')
-//     const [userVenue, setVenue] = useState('')
-//     const [userDate, setDate] = useState('')
-//     const [userMail, setMail] = useState('')
-
-//     //Variables vides, utilisées pour conserver les valeurs initiales en mémoire
-//     const [name, _setName] = useState('')
-//     const [partner, _setPartner] = useState('')
-//     const [budget, _setBudget] = useState('')
-//     const [venue, _setVenue] = useState('')
-//     const [date, _setDate] = useState('')
-//     const [mail, _setMail] = useState('')
-
-//     //Recuperation du user
-//     firebase.
-//         firestore()
-//             .collection('users')
-//             .doc(firebase.auth().currentUser.uid)
-//             .get()
-//             .then(firestoreDocument => {
-//                 //console.log('User exists: ', firestoreDocument.exists);
-//                 if (firestoreDocument.exists) {
-//                     const user = firestoreDocument.data()
-//                     setID(user.id)
-//                     console.log("Donne infos id")
-//                     console.log(user.id)
-//                     console.log(uid)
-//                     setName(user.fullName)
-//                     setPartner(user.partner)
-//                     setBudget(user.budget)
-//                     setVenue(user.venue)
-//                     setDate(user.date)
-//                     setMail(user.email)
-//                 }
-//             });
-
-//     //ATTENTION ici modification temporaire du code : on reprend systématiquement les news valeurs
-//     //Besoin donc que tout soit rempli à chaque fois
-//     const sendData = () => {
-//         updateData()
-//         firebase.
-//             firestore()
-//                 .collection('users')
-//                 .doc(uid)
-//                 .update ({
-//                     date : date,
-//                     email : mail,
-//                     fullName : name,
-//                     partner : partner,
-//                     venue : venue,
-//                 });
-//         console.log('Quelles donnees sont envoyées ?')
-//         console.log(userDate)
-//         console.log(userMail)
-//         console.log(userName)
-//         console.log(userPartner)
-//         console.log(userVenue)
-//     }
-
-//     //Pour éviter d'avoir des champs vides
-//     //ATTENTION modification du champ dans la boucle if ne fonctionne pas ?...
-//     const updateData = () => {
-//         if (name !== "") {
-//             setName(name)
-//             console.log(userName)
-//             console.log("Name non nul")
-//             console.log(name)
-//             console.log(userName)
-//         }
-//         if (partner !== "") {
-//             setPartner(partner)
-//             console.log("partner non nul")
-//             console.log(partner)
-//             console.log(userPartner)
-//         }
-//         if (budget !== "") {
-//             setBudget(budget)
-//             console.log("budget non nul")
-//             console.log(budget)
-//         }
-//         if (venue !== "") {
-//             setVenue(venue)
-//             console.log("venue non nul")
-//             console.log(venue)
-//         }
-//         if (date !== "") {
-//             setDate(date)
-//             console.log("date non nul")
-//             console.log(date)
-//         }
-//         if (mail !== "") {
-//             setMail(mail)
-//             console.log("mail non nul")
-//             console.log(mail)
-//         }
-//     }
-
-//     return (
-
-//         <View style={styles.container}>
-//             <View style={styles.header}>
-//                 <Text>Mon compte</Text>
-//             </View>
-//             <View //ATTENTION RAJOUT DE CODE ICI
-//             >
-//                 <Text>
-//                     Attention, si vous voulez modifier un champ, il vous est demandé de renoter également l'ensemble des champs présents.</Text>
-//             </View>
-//             <View style={styles.donnees}>
-//                 <View style={styles.donneesSpe}>
-//                     <Text>Prénom</Text>
-//                     <TextInput
-//                         style={styles.input}
-//                         placeholder={JSON.stringify(userName)}
-//                         placeholderTextColor="#aaaaaa"
-//                         onChangeText={(text) => _setName(text)}
-//                         value={name}
-//                     />
-//                 </View>
-//                 <View style={styles.donneesSpe}>
-//                     <Text>Partenaire</Text>
-//                     <TextInput
-//                         style={styles.input}
-//                         placeholder={JSON.stringify(userPartner)}
-//                         placeholderTextColor="#aaaaaa"
-//                         value={partner}
-//                         onChangeText={(text) => _setPartner(text)}
-//                     />
-//                 </View>
-//                 <View style={styles.donneesSpe}>
-//                     <Text>Budget total</Text>
-//                     <TextInput
-//                         style={styles.input}
-//                         placeholder={JSON.stringify(userBudget)}
-//                         placeholderTextColor="#aaaaaa"
-//                         value={budget}
-//                         onChangeText={(text) => _setBudget(text)}
-//                     />
-//                 </View>
-//                 <View style={styles.donneesSpe}>
-//                     <Text>Lieu du mariage</Text>
-//                     <TextInput
-//                         style={styles.input}
-//                         placeholder={JSON.stringify(userVenue)}
-//                         placeholderTextColor="#aaaaaa"
-//                         value={venue}
-//                         onChangeText={(text) => _setVenue(text)}
-//                     />
-//                 </View>
-//                 <View style={styles.donneesSpe}>
-//                     <Text>Date du mariage</Text>
-//                     <TextInput
-//                         style={styles.input}
-//                         placeholder={JSON.stringify(userDate)}
-//                         placeholderTextColor="#aaaaaa"
-//                         value={date}
-//                         onChangeText={(text) => _setDate(text)}
-//                     />
-//                 </View>
-//                 <View style={styles.donneesSpe}>
-//                     <Text>Adresse mail</Text>
-//                     <TextInput
-//                         style={styles.input}
-//                         placeholder={JSON.stringify(userMail)}
-//                         placeholderTextColor="#aaaaaa"
-//                         value={mail}
-//                         onChangeText={(text) => _setMail(text)}
-//                     />
-//                 </View>
-//             </View>
-//             <TouchableOpacity
-//                     style={styles.button}
-//                     onPress={() => sendData()}
-//                     >
-//                     <Text style={styles.buttonTitle}>Modifier</Text>
-//             </TouchableOpacity>
-//         </View>
-
-//     )
-//     }
