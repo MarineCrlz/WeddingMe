@@ -15,7 +15,6 @@ export default StyleSheet.create({
     },
 
     donnees:{
-        //flex: 1,
         marginTop: 30,
         justifyContent : 'space-between'
 
@@ -34,7 +33,6 @@ export default StyleSheet.create({
         backgroundColor: 'white',
         marginBottom: 10,
         marginLeft : 30,
-        //marginRight: 30,
         paddingLeft: 16,
         width: '50%'
     },
@@ -48,6 +46,6 @@ export default StyleSheet.create({
         borderRadius: 5,
         alignItems: "center",
         justifyContent: 'center',
-        width: 200 //a modifier plus tard, pour le moment bug avec les %
+        width: 200 
     },
 })
