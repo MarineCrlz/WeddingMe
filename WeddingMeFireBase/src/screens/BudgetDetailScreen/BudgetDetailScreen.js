@@ -13,7 +13,7 @@ class BudgetDetailScreen extends React.Component {
     //setState et relancer le render à chaque fois
     //On les met donc en prop
     this.intitule = this.props.route.params.budget.Intitule,
-    this.prix = this.props.route.params.budget.Prix,
+    this.prix = this.props.route.params.budget.Prix.toString(),
     this.description = this.props.route.params.budget.Description,
     this.userId = this.props.route.params.budget.IdUser,
     this.budgetId = this.props.route.params.budget.id,
@@ -102,7 +102,8 @@ class BudgetDetailScreen extends React.Component {
       }
       if (this._prix != "")
       {
-        newPrix = this._prix
+        convert = parseInt(this._prix)
+        newPrix = convert
       }
       if (this._description != "")
       {

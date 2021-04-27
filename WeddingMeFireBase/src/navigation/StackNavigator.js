@@ -140,7 +140,7 @@ const screenOptionStyle = {
           <Stack.Screen name="WeddingMe" component={MainTabNavigator}/>
 
           <Stack.Screen name='Compte' component={AccountScreen}/>
-          <Stack.Screen name='TodoListDetail' component={ToDoListDetailScreen}/>
+          <Stack.Screen name='Détails des todo' component={ToDoListDetailScreen}/>
           <Stack.Screen name='Ajouter un invité' component={GuestAddScreen}/>
           <Stack.Screen name='Details sur l invité' component={GuestDetailScreen}/>
           <Stack.Screen name='Ajouter une dépense' component={BudgetAddScreen}/>

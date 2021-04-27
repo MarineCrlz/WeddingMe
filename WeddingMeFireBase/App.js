@@ -20,6 +20,9 @@ export default function App() {
   const [loading, setLoading] = useState(true)
   const [user, setUser] = useState(null)
 
+  //Code utilisé pour désactiver les messages warning lors de l'ouverture de l'application
+  console.disableYellowBox = true
+
   return (
     <NavigationContainer>
         <MainNavigator/>

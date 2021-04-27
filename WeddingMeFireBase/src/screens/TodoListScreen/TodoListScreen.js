@@ -15,7 +15,7 @@ class ToDoListScreen extends React.Component {
   //Fonction navigation
   displayedDetails(time){
     //Envoi sur la page de détail des todo de la période considérée via le Stack Navigator
-      this.props.navigation.navigate("TodoListDetail", {time : time})
+      this.props.navigation.navigate("Détails des todo", {time : time})
   }
   
   render() {

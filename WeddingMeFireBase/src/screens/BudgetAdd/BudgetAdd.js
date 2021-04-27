@@ -49,7 +49,8 @@ class BudgetAddScreen extends React.Component {
     }
     
     setPrix(data){ 
-        this.prix = data
+        var convert = parseInt(data)
+        this.prix = convert
     }
 
     //Fonctions setter utilisées pour les boutons
@@ -81,14 +82,6 @@ class BudgetAddScreen extends React.Component {
                 const user = firestoreDocument.data()
                 this.setUserId(user.id)
                 this.setUser(user)
-                
-                //On gère le cas où le nom du partner n'est pas saisi
-                //en faisant un affichage différencié
-                if (user.partner == "")
-                {
-                    const text = "La moitié de "
-                    this.setPartner(text + user.fullName)
-                }
             }
         });
   }
@@ -109,6 +102,13 @@ class BudgetAddScreen extends React.Component {
                     Prix : this.prix,
                 }
             )
+            .then(() => {
+                this.props.navigation.goBack();
+                console.log("Document successfully add!");
+                
+            }).catch((error) => {
+                console.error("Error adding document: ", error);
+            });
     }
     
     //Fonction automatiquement lancée à l'ouverture du screen

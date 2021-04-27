@@ -135,6 +135,13 @@ class CustomerAddScreen extends React.Component {
                     // Prix : this.prix,
                 }
             )
+            .then(() => {
+                this.props.navigation.goBack();
+                console.log("Document successfully add!");
+                
+            }).catch((error) => {
+                console.error("Error adding document: ", error);
+            });
     }
     
     //Fonction automatiquement lancée à l'ouverture du screen

@@ -44,10 +44,6 @@ class BudgetScreen extends React.Component {
       this.setState({user : data})
   }
 
-  setPartnerAffichage(data){
-    this.setState({partnerAffichage : data})
-}
-
   //Fonction de récupération de l'user
   //Requêtes No-SQL envoyées à la BDD Firestore
   fetchUser(){
@@ -66,12 +62,6 @@ class BudgetScreen extends React.Component {
                 //on peut aller chercher ses dépenses
                 this.loadTaskBudget()
                 //Et aller actualiser les données d'affichage
-
-                //Affichage différencié si le prénom du partenaire n'a pas été renseigné
-                if(this.state.user.partner != ""){
-                  const data = "Invités de " + this.state.user.partner
-                  this.setPartnerAffichage(data)
-                }
             }
         });
   }
@@ -111,6 +101,7 @@ class BudgetScreen extends React.Component {
     data.forEach(item =>
       {
         budgetEnd = budgetEnd - item.Prix
+        console.log(budgetEnd)
       })
     return (budgetEnd)
   }
@@ -119,10 +110,12 @@ class BudgetScreen extends React.Component {
   componentDidMount(){
     //Appel le chargement des données de l'user actuel
     this.fetchUser()
+    console.log("didmount")
   }
 
   render() {
 
+    console.log("RENDER")
     //Recuperation des données pour faciliter les appels
     const navigation = this.props.navigation
 
@@ -130,11 +123,27 @@ class BudgetScreen extends React.Component {
     var affichageBudget = "Budget total : " + this.state.user.budget + " €"
     var affichageBudgetEnd = "Budget restant : " + this.state.budgetEnd + " €"
     //Différenciation de l'affichage si le budget n'a pas été spécifié
-    if(this.state.user.budget == "" | this.state.user.budget == 0)
+    if(this.state.user.budget == 0)
     {
+      var newEndBudget = 0
       var affichageBudget = "Budget total : non défini"
       var affichageBudgetEnd = "Budget nécessaire : " + this.state.budgetEnd*(-1) + " €"
+      
+      if (this.state.budgetEnd == "" | this.state.budgetEnd == NaN)
+      {
+        // this.state.budget.forEach(depense => {
+        //   const prix = depense.Prix
+        //   newEndBudget = newEndBudget + prix
+        // });
+        affichageBudgetEnd = "Budget nécessaire : " + newEndBudget.toString() + " €"
+      }
     }
+
+    console.log("Affichage budgetEnd")
+    console.log(this.state.budgetEnd)
+
+    console.log("Affichage affichageBudgetEnd")
+    console.log(affichageBudgetEnd)
 
     return (
       <View style={styles.main_container}>
@@ -171,10 +180,10 @@ class BudgetScreen extends React.Component {
                 />
 
                 <View style={styles.container_title_guest}>
-                  <Text style={styles.title_guest}>Tenues</Text>
+                  <Text style={styles.title_guest}>Tenue</Text>
                 </View>
                 <FlatList
-                data={this.state.budget.filter(budget => budget.Categorie == "Tenues")}
+                data={this.state.budget.filter(budget => budget.Categorie == "Tenue")}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({item}) => <BudgetItem budget={item} navigation = {navigation}/>}
                 />
@@ -183,7 +192,7 @@ class BudgetScreen extends React.Component {
                   <Text style={styles.title_guest}>Décoration</Text>
                 </View>
                 <FlatList
-                data={this.state.budget.filter(budget => budget.Categorie == "Décoration")}
+                data={this.state.budget.filter(budget => budget.Categorie == "Decoration")}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({item}) => <BudgetItem budget={item} navigation = {navigation}/>}
                 />
